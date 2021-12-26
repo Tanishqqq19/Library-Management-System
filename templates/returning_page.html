@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%for i in extra_two%}
+        <img src="{{i[2]}}"></img>
+        <br>
+        Book Name: {{i[0]}}
+        <br>
+        Author: {{i[1]}}
+        <br>
+    {%endfor%}
+    {%for i in extra_one%}
+        From: {{i[0]}}
+        <br>
+        To: {{i[1]}}
+        <br>
+    {%endfor%}
+    The return was succcesful
+</body>
+</html>
