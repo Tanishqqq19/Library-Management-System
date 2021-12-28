@@ -53,6 +53,51 @@
         width:  200px;
         height: 200px;
       } */
+      .post-container {
+          margin: 20px 20px 0 0;  
+          border: 5px solid #333;
+          overflow: auto
+      }
+      .post-thumb {
+          float: left
+      }
+      .post-thumb img {
+          display: block
+      }
+      .post-content {
+          margin-left: 210px
+      }
+      .post-title {
+          font-weight: bold;
+          font-size: 200%
+      }
+      .btn {
+        font-family: "Sentinel A","Sentinel B",Georgia,serif; 
+        text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+        background: #4383c5;
+        color: #FFF;
+        padding: 6px 20px 7px; 
+        font-size: 18px;
+        line-height: 23px;
+        min-width: 50px;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle; 
+        border: 1px solid 4383c5;
+        cursor: pointer;
+        font-weight: 600px; 
+        transition: opacity 0.1s ease-out,background 0.1s ease-out;
+        /* -webkit-border-radius: 2px; */
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.4);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.4);
+        -webkit-transition: opacity 0.1s ease-out,background 0.1s ease-out;
+      }
+
+
+      .btn:hover
+      {
+        background-color: #356fac; 
+      }
       </style>
 
     <title>Tanishq's Website</title>
@@ -85,7 +130,8 @@
           </div>
         </div>
       </nav>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>  
+    </div>  
       <div class="search_bars">
         <form action="/book_search" method="POST">
           <input type="text" name="search" id="" placeholder='search by books'>
@@ -98,24 +144,25 @@
     </div>
           {% for i in records2 %}
               {%for j in i%}
-                  <a href='#'>
-                    <!-- /booking/{{j[1]}} -->
-                    <img src="{{j[0]}}"></img>
-                  </a>
-                <br>
-                Book Name: {{j[1]}}
-                <br>
-              Author: {{j[2]}}
-              <a href='/booking/{{j[1]}}'>
-                <img src="https://i.postimg.cc/63csYh04/would-you.jpg"></img>
-              </a>
-              <br>
+              <div class="post-container">                
+                <div class="post-thumb"><img src="{{j[0]}}" width=200 height=200/></div>
+                <div class="post-content">
+                    <h3 class="post-title">{{j[1]}}</h3>
+                    <p>Author: {{j[2]}}</p>
+                    <a href='/booking/{{j[1]}}'>
+                      <img src="https://i.postimg.cc/PqnShqV5/get-book.jpg" width="200" height="50"></img>
+                    </a>
+                    <a href="#" class="btn"><span>+ Add to Wish List</span></a>
+                </div>
+                </div>
         {%endfor%}
       {%endfor%} 
     </div>
       {%for i in records3%}
           <a href='/booking/{{i[1]}}'>
             <img src="{{i[2]}}"></img>
+            <br>
+            <br>
           </a>
           <br>
       {%endfor%}

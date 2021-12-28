@@ -393,7 +393,7 @@ def books():
     records1=""
     records2=""
     jem=""
-    # books=session['books']
+    print('This works')
     try:
         with sql.connect('library.db') as conn:
             cur=conn.cursor()
