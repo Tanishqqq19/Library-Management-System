@@ -6,164 +6,28 @@ from flask_mail import Mail, Message
 from datetime import datetime,timedelta,date
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
-# C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Desktop\Lib_pro\library.db
+
+from routes.register import init_app as register_init_app
+from routes.display_books import init_app as display_books_init_app
+from routes.login import init_app as login_init_app
+from routes.display_borrowable_books import init_app as display_borrowable_books_init_app
+
+# C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 """
 The bottom is how the update statement works
 update books SET image="https://i.postimg.cc/QMxDrvF8/great-gatsby.jpg" where books_name="Around the World in 80 days";
 """
-import random
-import os
-import smtplib
-import imghdr
-from email.message import EmailMessage
-
-def email():
-    EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
-    EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-
-    contacts = ['YourAddress@gmail.com', 'test@example.com']
-
-    msg = EmailMessage()
-    msg['Subject'] = 'Forgot password'
-    msg['From'] = 'tanmeup195@gmail.com'
-    msg['To'] = 'eciatma@gmail.com'
-    l=random.randint(10000,100000)
-    msg.set_content('This is a plain text email')
-
-    msg.add_alternative("""\
-            <h4>Password:</h4>"""""+str(l)+"""
-            <h4>for further continuance go here</h4>
-        <a href="/http://127.0.0.1:5000/forgot_password">
-        </a>
-    """, subtype='html')
-
-
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login("tanmeup195@gmail.com", "Networking1$")
-        smtp.send_message(msg)
 
 app= Flask(__name__)
 app.config["SECRET_KEY"]="180909090909090909"
 
-# A function check which will check if the same user isn't logging in again 
-def user_exist(email):
-    conn=None
-    try:
-        with sql.connect('library.db') as conn:
-            cur=conn.cursor()
-            cur.execute('Select email from register_and_login where email=?',[email])
-            records=cur.fetchall()
-            if len(records)>0:
-                return True
-            else:
-                return False
-    except Exception as e:
-        conn.rollback()
-        n='operation unsuccessful'
-    finally:
-        conn.close()
-# To check if a person is a user or a admin
-def check_role():
-        conn=None
-        try:
-            user_id=session['user_id']
-            with sql.connect('library.db') as conn:
-                cur=conn.cursor()
-                for i in books:
-                    cur.execute('Select role from register_and_login where user_id=?'+user_id)
-                    records=cur.fetchall()
-                    return records
-        except Exception as e:
-            conn.rollback()
-        finally:
-            conn.close()
 # A button which will help you log out from your account
 @app.route('/logout')
 def logout():
 	session.clear()
 	return redirect('/')
 
-# Getting the email for the password
-@app.route('/get_email',methods=["POST","GET"])
-def get_email():
-    if request.method=="POST":
-        email=request.form.get("email")
-        print(email)
-        return render_template('forgotpassword.html')
-    if request.method=="GET":
-        email=request.form.get("email")
-        print(email)
-        return render_template('get_email.html')
 
-
-# Forgot password
-@app.route('/forgot_password',methods=["POST","GET"])
-def forgot_password():
-    if request.method=="POST":
-        email=request.form.get("email")
-        print(email)
-        session['email_save']=email
-        EMAIL_ADDRESS = os.environ.get('EMAIL_USER')
-        EMAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-
-        contacts = ['YourAddress@gmail.com', 'test@example.com']
-
-        msg = EmailMessage()
-        msg['Subject'] = 'Forgot password'
-        msg['From'] = 'tanmeup195@gmail.com'
-        msg['To'] = email
-        l=random.randint(10000,100000)
-        session['l']=l
-        msg.set_content('This is a plain text email')
-
-        msg.add_alternative("""\
-                <h4>Password:</h4>"""""+str(l)+"""
-                <h4>for further continuance go here</h4>
-            <a href="http://127.0.0.1:5000/forgot_password">
-            </a>
-        """, subtype='html')
-
-
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-            smtp.login("tanmeup195@gmail.com", "Networking1$")
-            smtp.send_message(msg)
-        return render_template('forgotpassword1.html')
-    if request.method=="GET":
-        # email=request.form.get('email')
-        # print(email)
-        return render_template('forgotpassword.html') 
-
-@app.route('/forgot_password1', methods=["POST","GET"])
-def forgot_password1():
-    if request.method=="POST":
-        password=request.form.get('password')
-        j=int(password)
-        print(j)
-        print(type(j))
-        f=session['l']
-        print(f)
-        print(type(f))
-        if j==f:
-            return render_template('change_password.html')
-        else:
-            return render_template('forgotpassword1.html',error="wrong_password")
-    if request.method=="GET":
-        return render_template('forgotpassword1.html')
-@app.route('/change_password', methods=["POST","GET"])
-def change_password():
-    if request.method=="POST":
-        update=request.form.get("password")
-        print(update)
-        email=session['email_save']
-        print(email)
-        return render_template('change_password.html')
-    if request.method=="GET":
-        return render_template('change_password.html')
-
-# An about page of me
-@app.route('/about')
-def about():
-    return render_template('about.html')
 # The q and a of the things in the system
 @app.route('/qanda')
 def qanda():
@@ -173,82 +37,10 @@ def qanda():
         return render_template('qanda.html')
 
 # searching all the books available
-@app.route('/book_search',methods=["POST","GET"])
-def book_search():
-    if session.get('authenticated',False)==False:
-        return render_template('login.html',error_message="You haven't logged in")
-    if request.method=="POST":
-        conn=None
-        mylist=[]
-        try:
-            with sql.connect('library.db') as conn:
-                cur=conn.cursor()
-                search=request.form.get('search')
-                print(search)
-                cur.execute('Select books_name,image from books')
-                s=cur.fetchall()
-                g=len(search)
-                for i in s:
-                    j=i[0]
-                    if j[:g]==search:
-                        mylist.append(i)
-                print(mylist)
-        except Exception as e:
-            conn.rollback()
-        finally:
-            conn.close()
-            return render_template('books.html',mylist=mylist)
-    if request.method=="GET":
-        conn=None
-        return render_template('books.html')
 
-
-@app.route('/book_search_author',methods=["GET","POST"])
-def book_search_author():
-    if session.get('authenticated',False)==False:
-        return render_template('login.html',error_message="You haven't logged in")
-    if request.method=="POST":
-        conn=None
-        mylist=[]
-        try:
-            with sql.connect('library.db') as conn:
-                cur=conn.cursor()
-                search=request.form.get('search')
-                print(search)
-                cur.execute('Select author,books_name,image from books')
-                s=cur.fetchall()
-                g=len(search)
-                for i in s:
-                    j=i[0]
-                    if j[:g]==search:
-                        mylist.append(i)
-                print(mylist)
-        except Exception as e:
-            conn.rollback()
-        finally:
-            conn.close()
-            return render_template('books.html',records3=mylist)
-    if request.method=="GET":
-        conn=None
-        return render_template('books.html')
 
 # These are all the books the admin can see.
-@app.route('/all_the_books2')
-def all_the_books2():
-    conn=None
-    if session.get('authenticated',False)==False:
-        return render_template('login.html',error_message="You haven't logged in")
-    try:
-        with sql.connect('library.db') as conn:
-            cur=conn.cursor()
-            cur.execute('Select image from books')
-            records2=cur.fetchall()
-            records2=set(records2)
-    except Exception as e:
-        conn.rollback()
-    finally:
-        conn.close()
-        return render_template('all_the_books2.html',records2=records2)
+display_books_init_app(app)
 
 # The homepage which we see when we open
 @app.route('/')
@@ -304,133 +96,13 @@ def overview_home():
     return render_template('overview_home.html')
 
 #registration 
-@app.route('/register', methods=["POST","GET"])
-def registration():
-    if request.method=='POST':
-        username=request.form.get('username')
-        email=request.form.get('email')
-        password=request.form.get('password')        
-        conn=None
-        return_value=user_exist(email)
-        secret_password=generate_password_hash(password, "sha256")
-        if return_value==False:
-            try:
-                with sql.connect('library.db') as conn:
-                        cur=conn.cursor()
-                        # in role if 1 ur admin and if 2 ur user
-                        cur.execute('INSERT INTO register_and_login(Username, password, email, role) Values(?,?,?,?)',(username, secret_password, email, "user"))
-                        conn.commit()
-            except Exception as e:
-                    conn.rollback()
-            finally:
-                conn.close()
-                return render_template('login.html')
-        else:
-            return render_template('login.html', error_message="You have already signed in once please login")
-    if request.method=="GET":
-        return render_template('register.html')
-
+register_init_app(app)
 
 # login
-@app.route('/login', methods=["POST","GET"])
-def login():
-    email=request.form.get('email')
-    password=request.form.get('password')
-    conn=None
-    m=user_exist(email)
-    if m==True:
-        if request.method=='POST':
-            try:
-                with sql.connect('library.db') as conn:
-                    cur=conn.cursor()
-                    cur.execute('Select password,user_id,Username from register_and_login where email=?',[email])
-                    records=cur.fetchone()
-                    print(records)
-                    conn.commit()
-                    correct_password=records[0]
-                    user_id=records[1]
-                    user_name=records[2]
-                    session["user_id"]=user_id
-                    session["Username"]=user_name
-                    uncover_password=check_password_hash(correct_password, password)
-                    if uncover_password==True:
-                        try:
-                            user_id=session['user_id']
-                            with sql.connect('library.db') as conn:
-                                cur=conn.cursor()
-                                cur.execute('Select role from register_and_login where user_id=?',[user_id])
-                                records2=cur.fetchall()
-                        except Exception as e:
-                            conn.rollback()
-                        finally:
-                            for i in records2:
-                                for j in i:
-                                    session['authenticated']=True
-                                    if j=="admin":
-                                        conn.close()
-                                        return redirect('/admin_records')
-                                    if j=="user":
-                                        conn.close()
-                                        return render_template('overview_home.html')
-                    else:
-                        return render_template ('login.html',error_message="The Username or the Password is wrong")
-            except Exception as e:
-                    conn.rollback()
-            finally:
-                conn.close()
-        if request.method=="GET":
-            return render_template('login.html')
-    else:
-        return render_template('login.html')
-
+login_init_app(app)
 
 # This is the page where the user can borrow books. The opening one.
-@app.route('/books')
-def books():   
-    if session.get('authenticated',False)==False:
-        return render_template('login.html',error_message="You haven't logged in")
-    conn=None
-    records1=""
-    records2=""
-    jem=""
-    print('This works')
-    try:
-        with sql.connect('library.db') as conn:
-            cur=conn.cursor()
-            cur.execute('Select book_id, copies from books')
-            jem=cur.fetchall()
-            mylist=[]
-            mylist1=[]
-            mylist2=[]
-            for i in jem:
-                cur.execute('select records_id from records where book_returned="No" and book_user_id=?',[str(i[0])])
-                re=cur.fetchall()
-
-                if (len(re)-1)<i[1]:
-                    # print(len(re),i[0])
-                    mylist.append(i[0])
-            print(mylist)
-            for i in mylist:
-                # print('Select books_name from books where book_id=?',[i])
-                cur.execute('Select books_name from books where book_id=?',[i])
-                records1=cur.fetchall()
-                mylist1.append(records1)
-            # print('-------')
-            # print(mylist1)
-            # print('-------')
-            for i in mylist:
-                # print('Passed 1')
-                cur.execute('Select image,books_name,author from books where book_id=?',[i])
-                # print('Passed 2')
-                records2=cur.fetchall()
-                # print(records2)
-                mylist2.append(records2)
-            # print(mylist2)
-    except Exception as e:
-        conn.rollback()
-    finally:
-        conn.close()
-        return render_template('books.html',records1=mylist1,records2=mylist2)
+display_borrowable_books_init_app(app)
 
 # The page where the admin can see who borrowed which book and when.
 @app.route('/admin_records')
@@ -452,23 +124,6 @@ def admin_records():
         conn.close()
         return render_template('admin_records.html')
 # This is the page of all the books the user can see
-@app.route('/all_the_books')
-def all_the_books():
-    conn=None
-    if session.get('authenticated',False)==False:
-        return render_template('login.html',error_message="You haven't logged in")
-    try:
-        with sql.connect('library.db') as conn:
-            cur=conn.cursor()
-            cur.execute('Select image from books')
-            records2=cur.fetchall()
-            records2=set(records2)
-    except Exception as e:
-        conn.rollback()
-    finally:
-        conn.close()
-        return render_template('all_the_books.html',records2=records2)
-
 
 # This is the page where the person can return the books
 @app.route('/return_book')
@@ -607,7 +262,7 @@ def return_successful():
                 conn.close()
             return render_template('overview_home.html')
 # This code will help in telling if you can borrow the book for onw week.
-@app.route('/one_week')
+@app.route('/duration/<time_period>')
 def one_week():
     books=session['books']
     print(books)
@@ -645,84 +300,6 @@ def one_week():
         conn.close()
         # return render_template('one_week.html',ref="doesn't work")
 
-@app.route('/two_week')
-def two_week():
-    books=session['books']
-    print(books)
-    user_id=session['user_id']
-    conn=None
-    try:
-        with sql.connect('library.db') as conn:
-
-            cur=conn.cursor()
-            cur.execute("Select copies, book_id from books where books_name=?",[books])
-            rec=cur.fetchall()
-            for i in rec:
-                copies=i[0]
-                book_id=i[1]
-
-
-            from datetime import date
-            today = date.today()
-            two_week=today + datetime.timedelta(days=14)
-            num=0
-            cur.execute('Select from_date, to_date from records where book_returned="No" and book_user_id=?',[book_id])
-            dates=cur.fetchall()
-            print(len(dates))
-            for i in dates:
-                if (len(dates)-1)>=copies:
-                    return render_template('one_week.html',ref="Sorry you cannot borrow")
-                if str(today)>i[0]:
-                    cur.execute('INSERT INTO records(book_user_id, borrow_user_id, from_date,to_date,book_returned) Values(?,?,?,?,?)',(book_id,user_id, today,two_week,"No"))
-                    return render_template('one_week.html',ref="borrowed")
-            
-
-    except Exception as e:
-        conn.rollback()
-    finally:     
-        conn.close()
-        # return render_template('one_week.html',ref="doesn't work")
-
-@app.route('/one_month')
-# def borrow_for_time(num_days):         
-def one_month():
-    books=session['books']
-    print(books)
-    user_id=session['user_id']
-    conn=None
-    try:
-        with sql.connect('library.db') as conn:
-
-            cur=conn.cursor()
-            cur.execute("Select copies, book_id from books where books_name=?",[books])
-            rec=cur.fetchall()
-            for i in rec:
-                copies=i[0]
-                book_id=i[1]
-
-
-            from datetime import date
-            today = date.today()
-            # Change the 30 to num_days
-            one_month=today + datetime.timedelta(days=30)
-            num=0
-            cur.execute('Select from_date, to_date from records where book_returned="No" and book_user_id=?',[book_id])
-            dates=cur.fetchall()
-            print(len(dates))
-            for i in dates:
-                if (len(dates)-1)>=copies:
-                    return render_template('one_week.html',ref="Sorry you cannot borrow")
-                if str(today)>i[0]:
-                    cur.execute('INSERT INTO records(book_user_id, borrow_user_id, from_date,to_date,book_returned) Values(?,?,?,?,?)',(book_id,user_id, today,one_month,"No"))
-                    return render_template('one_week.html',ref="borrowed")
-            
-
-    except Exception as e:
-        conn.rollback()
-    finally:     
-        conn.close()
-# @app.route('/book_search_author',methods=["POST","GET"])
-# def book_search_author():
 
 # The place where the admin can add more books
 @app.route('/add_book', methods=["POST","GET"])

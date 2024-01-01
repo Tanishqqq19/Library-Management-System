@@ -1,5 +1,5 @@
 import sqlite3
-conn=sqlite3.connect('library.db')
+conn=sqlite3.connect('./library.db')
 cur=conn.cursor()
 # cur.execute('drop table records')
 # cur.execute('drop table books')
