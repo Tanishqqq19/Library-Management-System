@@ -11,6 +11,8 @@ from routes.register import init_app as register_init_app
 from routes.display_books import init_app as display_books_init_app
 from routes.login import init_app as login_init_app
 from routes.display_borrowable_books import init_app as display_borrowable_books_init_app
+from routes.search_books_by_title import init_app as search_books_by_title_init_app
+from routes.search_books_by_author import init_app as search_books_by_author_init_app
 
 # C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 """
@@ -41,6 +43,8 @@ def qanda():
 
 # These are all the books the admin can see.
 display_books_init_app(app)
+search_books_by_title_init_app(app)
+search_books_by_author_init_app(app)
 
 # The homepage which we see when we open
 @app.route('/')

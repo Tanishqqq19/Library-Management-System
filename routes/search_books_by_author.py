@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, session
 import sqlite3 as sql
 
 def init_app(app):
-    @app.route('/search_book_by_author', methods=["GET", "POST"])
-    def search_book_by_author():
+    @app.route('/search_books_by_author', methods=["GET", "POST"])
+    def search_books_by_author():
         # Check if the user is authenticated
         if not session.get('authenticated', False):
             return render_template('login.html', error_message="You haven't logged in")
@@ -29,10 +29,10 @@ def init_app(app):
             finally:
                 if connection:
                     connection.close()
-                return render_template('display_books.html', matching_books=matching_books)
+                return render_template('display_borrowable_books.html', matching_books=matching_books)
 
         if request.method == "GET":
-            return render_template('display_books.html')
+            return render_template('display_borrowable_books.html')
 
 
         

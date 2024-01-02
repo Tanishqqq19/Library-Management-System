@@ -133,11 +133,11 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>  
     </div>  
       <div class="search_bars">
-        <form action="/book_search" method="POST">
+        <form action="/search_books_by_title" method="POST">
           <input type="text" name="search" id="" placeholder='search by books'>
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
-        <form action="/book_search_author" method="POST">
+        <form action="/search_books_by_author" method="POST">
           <input type="text" name="search" id="" placeholder='search by author'>
           <button type="submit"><i class="fa fa-search"></i></button>
         </form>
@@ -159,7 +159,6 @@
       {%endfor%} 
     </div>
       {%for i in matching_books%}
-          <p>{{i}}</p>
           <a href='/booking/{{i[1]}}'>
             <img src="{{i[2]}}"></img>
             <br>
@@ -168,7 +167,6 @@
           <br>
       {%endfor%}
       {%for i in books_matching_title%}
-          <p>{{i}}</p>
           <a href='/booking/{{i[0]}}'>
             <img src="{{i[1]}}"></img>
           </a>
