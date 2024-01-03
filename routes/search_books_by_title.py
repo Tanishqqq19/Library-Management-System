@@ -39,5 +39,3 @@ def init_app(app):
 
         if request.method == "GET":
             return render_template('display_borrowable_books.html')
-
-#this is mylist

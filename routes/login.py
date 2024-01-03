@@ -7,23 +7,15 @@ def init_app(app):
     @app.route('/login', methods=["POST", "GET"])
     def login():
         if request.method == 'POST':
-            print(1)
             email = request.form.get('email')
             password = request.form.get('password')
-            print(email, password)
             is_user_existing = user_exist(email)
-            print(is_user_existing)
             if is_user_existing:
                 try:
-                    print(2)
                     with sql.connect('library.db') as connection:
                         cursor = connection.cursor()
                         cursor.execute('SELECT password, user_id, Username FROM register_and_login WHERE email=?', [email])
-                        print(4)
                         user_credentials = cursor.fetchone()
-                        print(user_credentials)
-                        print(5)
-
                         hashed_password = user_credentials[0]
                         user_id = user_credentials[1]
                         username = user_credentials[2]

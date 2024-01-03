@@ -13,14 +13,14 @@
 </head>
 <body>
     <div class="return">
-        {%for i in mylist%}
+        {%for record in book_details_list%}
             <a href='#'>
-                <img src="{{i[0]}}"></img>
+                <img src="{{record[0]}}"></img>
             </a>
             <br>
-            Author:{{i[2]}}
+            Author:{{record[2]}}
             <br>
-            <a href='/returning/{{i[1]}}'>
+            <a href='/process_return/{{record[1]}}'>
                 <img src="https://i.postimg.cc/Sxt8B0Zm/return.jpg"></img>
               </a>
             <br>

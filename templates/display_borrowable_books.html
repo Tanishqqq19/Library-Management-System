@@ -149,7 +149,7 @@
                 <div class="post-content">
                     <h3 class="post-title">{{j[1]}}</h3>
                     <p>Author: {{j[2]}}</p>
-                    <a href='/booking/{{j[1]}}'>
+                    <a href='/borrow/{{j[1]}}'>
                       <img src="https://i.postimg.cc/PqnShqV5/get-book.jpg" width="200" height="50"></img>
                     </a>
                     <a href="#" class="btn"><span>+ Add to Wish List</span></a>
@@ -159,7 +159,7 @@
       {%endfor%} 
     </div>
       {%for i in matching_books%}
-          <a href='/booking/{{i[1]}}'>
+          <a href='/borrow/{{i[1]}}'>
             <img src="{{i[2]}}"></img>
             <br>
             <br>
@@ -167,7 +167,7 @@
           <br>
       {%endfor%}
       {%for i in books_matching_title%}
-          <a href='/booking/{{i[0]}}'>
+          <a href='/borrow/{{i[0]}}'>
             <img src="{{i[1]}}"></img>
           </a>
           <br>
