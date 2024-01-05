@@ -1,11 +1,4 @@
-from os import error
-from flask import Flask, render_template, request, session, redirect
-import sqlite3 as sql
-from flask.templating import _default_template_ctx_processor
-from flask_mail import Mail, Message
-from datetime import datetime,timedelta,date
-from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask import Flask, render_template
 from routes.register import init_app as register_init_app
 from routes.display_books import init_app as display_books_init_app
 from routes.login import init_app as login_init_app
@@ -28,10 +21,9 @@ from routes.admin_records import init_app as admin_records_init_app
 app= Flask(__name__)
 app.config["SECRET_KEY"]="180909090909090909"
 
-def init_app(app):
-    @app.route('/')
-    def index():
-        return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 display_books_init_app(app)
 search_books_by_title_init_app(app)
@@ -48,9 +40,6 @@ logout_init_app(app)
 faq_init_app(app)
 overview_home_init_app(app)
 admin_records_init_app(app)
-
-
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
