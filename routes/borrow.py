@@ -8,6 +8,4 @@ def init_app(app):
         if session.get('authenticated',False)==False:
             return render_template('login.html',error_message="You haven't logged in")
         session['books']=books
-        print(books)   
-
         return render_template('booking_page.html',books=books)

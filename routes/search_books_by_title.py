@@ -6,28 +6,18 @@ def init_app(app):
         # Check if the user is authenticated
         if not session.get('authenticated', False):
             return render_template('login.html', error_message="You haven't logged in")
-        print(1)
         if request.method == "POST":
-            print(2)
             search_query = request.form.get('search')
-
-            print(search_query)
             books_matching_title = []
 
             try:
-                print(4)
                 with sql.connect('library.db') as connection:
                     cursor = connection.cursor()
                     cursor.execute('SELECT books_name, image FROM books')
-                    print(5)
                     all_books = cursor.fetchall()
-                    print(all_books)
                     for book_name, image in all_books:
-                        print(book_name,search_query)
                         if book_name==search_query:
-                            print(8)
                             books_matching_title.append((book_name, image))
-                    print(books_matching_title)
 
             except Exception as e:
                 if connection:

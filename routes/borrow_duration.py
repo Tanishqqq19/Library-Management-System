@@ -7,6 +7,7 @@ def init_app(app):
     def borrow_duration(time_period):
         session_books = session['books']
         session_user_id = session['user_id']
+        session_borrow_user_name = session['Username']
         database_connection = None
 
         try:
@@ -14,7 +15,6 @@ def init_app(app):
                 database_cursor = database_connection.cursor()
                 database_cursor.execute("SELECT copies, book_id FROM books WHERE books_name = ?", [session_books])
                 book_records = database_cursor.fetchall()
-
                 for record in book_records:
                     book_copies = record[0]
                     book_id = record[1]
@@ -27,7 +27,7 @@ def init_app(app):
                     if (len(borrow_dates) - 1) >= book_copies:
                         return render_template('one_week.html', ref="Sorry you cannot borrow")
                     if str(current_date) > date_record[0]:
-                        database_cursor.execute('INSERT INTO records(book_user_id, borrow_user_id, from_date, to_date, book_returned) VALUES (?, ?, ?, ?, ?)', (book_id, session_user_id, current_date, target_date, "No"))
+                        database_cursor.execute('INSERT INTO records(book_user_id, book_user_name, borrow_user_id, borrow_user_name,from_date, to_date, book_returned) VALUES (?, ?, ?, ?, ?, ?, ?)', (book_id, session_books, session_user_id, session_borrow_user_name, current_date, target_date, "No"))
                         return render_template('one_week.html', ref="borrowed")
                         
 

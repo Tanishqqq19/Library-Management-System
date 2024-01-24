@@ -5,20 +5,14 @@ def init_app(app):
 
     @app.route('/display_books')
     def display_books():
-        print(1)
         if not session.get('authenticated', False):
             return render_template('login.html', error_message="You haven't logged in")
-        print(2)
-
         try:
-            print(3)
             with sql.connect('library.db') as connection:
                 cursor = connection.cursor()
                 cursor.execute('SELECT image from books')
-                print(4)
                 book_images = cursor.fetchall()
                 unique_book_images = set(book_images)
-                print(unique_book_images)
         except Exception as e:
             if connection:
                 connection.rollback()

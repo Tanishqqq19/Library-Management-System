@@ -13,7 +13,7 @@ def init_app(app):
             # Open a new database connection
             with sql.connect('library.db') as conn:
                 cur = conn.cursor()
-                cur.execute('SELECT book_user_id, from_date, to_date, borrow_user_id FROM records')
+                cur.execute('SELECT book_user_name, from_date, to_date, borrow_user_name FROM records')
                 records = cur.fetchall()
         except Exception as e:
             print(f"An error occurred: {e}")

@@ -21,8 +21,6 @@ def init_app(app):
                     for author, book_name, image in all_books:
                         if author.startswith(search_query):
                             matching_books.append((author, book_name, image))
-                    print(matching_books)
-
             except Exception as e:
                 if connection:
                     connection.rollback()
