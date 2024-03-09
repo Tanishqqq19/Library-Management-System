@@ -55,4 +55,5 @@ sample_admin_password=123
 
 ## Contact
 
-For any queries or assistance, please contact [tanmeup195@email.com](mailto:tanmeup195@email.com).
+For any queries or assistance, please contact [tanmeup195@gmail.com](mailto:tanmeup195@gmail.com).
+The website can be found on: https://tanishq-lms-290c8d062be6.herokuapp.com/
