@@ -19,7 +19,8 @@ from routes.admin_records import init_app as admin_records_init_app
 
 
 app= Flask(__name__)
-app.config["SECRET_KEY"]="180909090909090909"
+# app.config["SECRET_KEY"]="180909090909090909"
+app.config["SECRET_KEY"]="postgres://u4384j6ld0h0qa:p905a629fdcb6cf2b4e89c3c8f67cd416440820e59ae40ae981a97940ad2ae053@ceu9lmqblp8t3q.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dl0n4ruq7o0km"
 
 @app.route('/')
 def index():
