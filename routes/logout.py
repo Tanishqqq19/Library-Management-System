@@ -1,7 +1,8 @@
-from flask import session, redirect
+from flask import redirect, session
+
 
 def init_app(app):
-    @app.route('/logout')
+    @app.route("/logout")
     def logout():
         session.clear()
-        return redirect('/')
+        return redirect("/")
