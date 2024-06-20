@@ -1,53 +1,77 @@
 from flask import Flask, render_template
 
-from routes.add_book import init_app as add_book_init_app
-from routes.admin_records import init_app as admin_records_init_app
-from routes.borrow import init_app as borrow_init_app
-from routes.borrow_duration import init_app as borrow_duration_init_app
-from routes.display_books import init_app as display_books_init_app
-from routes.display_borrowable_books import (
-    init_app as display_borrowable_books_init_app,
-)
-from routes.faq import init_app as faq_init_app
-from routes.login import init_app as login_init_app
-from routes.logout import init_app as logout_init_app
-from routes.manage_returns import init_app as manage_returns_init_app
-from routes.overview_home import init_app as overview_home_init_app
-from routes.process_return import init_app as process_return_init_app
-from routes.register import init_app as register_init_app
-from routes.search_books_by_author import init_app as search_books_by_author_init_app
-from routes.search_books_by_title import init_app as search_books_by_title_init_app
+from routes.add_book import add_books
+from routes.admin_records import admin_records_
+from routes.borrow import borrow_
+from routes.borrow_duration import borrow_duration_
+from routes.display_books import display_books_
+from routes.display_borrowable_books import display_borrowable_books_
+from routes.faq import faq_
+from routes.login import login_user
+from routes.logout import logout_
+from routes.manage_returns import manage_returns_
+from routes.overview_home import overview_home_
+from routes.process_return import process_return_
+from routes.register import register_user
+from routes.search_books_by_author import search_books_by_author_
+from routes.search_books_by_title import search_books_by_title_
 
+from config import DATABASE_URL
 # C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 
 
 app = Flask(__name__)
 # app.config["SECRET_KEY"]="180909090909090909"
-app.config["SECRET_KEY"] = (
-    "postgres://u4384j6ld0h0qa:p905a629fdcb6cf2b4e89c3c8f67cd416440820e59ae40ae981a97940ad2ae053@ceu9lmqblp8t3q.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/dl0n4ruq7o0km"
-)
+app.config["SECRET_KEY"] = (DATABASE_URL)
 
 
 @app.route("/")
-def index():
-    return render_template("index.html")
+def index(): return render_template("index.html")
 
+@app.route('/display_books')
+def display_books(): return display_books_()
 
-display_books_init_app(app)
-search_books_by_title_init_app(app)
-search_books_by_author_init_app(app)
-add_book_init_app(app)
-register_init_app(app)
-login_init_app(app)
-display_borrowable_books_init_app(app)
-borrow_duration_init_app(app)
-borrow_init_app(app)
-manage_returns_init_app(app)
-process_return_init_app(app)
-logout_init_app(app)
-faq_init_app(app)
-overview_home_init_app(app)
-admin_records_init_app(app)
+@app.route("/search_books_by_title", methods=["POST", "GET"]) # type: ignore
+def search_books_by_title(): return search_books_by_title_()
+
+@app.route("/search_books_by_author", methods=["POST", "GET"]) # type: ignore
+def search_books_by_author(): return search_books_by_author_()
+
+@app.route("/add_book", methods=["POST", "GET"]) 
+def add_book(): return add_books()
+
+@app.route("/register", methods=["POST", "GET"])
+def register(): return register_user()
+
+@app.route("/login", methods=["POST", "GET"])
+def login(): return login_user()
+
+@app.route("/display_borrowable_books")
+def display_borrowable_books(): return display_borrowable_books_()
+
+@app.route("/borrow_duration/<time_period>")
+def borrow_duration(time_period): return borrow_duration_(time_period)
+
+@app.route("/borrow/<books>")
+def borrow(books): return borrow_(books)
+
+@app.route("/manage_returns")
+def manage_returns(): return manage_returns_()
+
+@app.route("/process_return/<book_id>")
+def process_return(book_id): return process_return_(book_id)
+
+@app.route("/logout")
+def logout(): return logout_()
+
+@app.route("/faq")
+def faq(): return faq_()
+
+@app.route("/overview_home")
+def overview_home(): return overview_home_()
+
+@app.route("/admin_records")
+def admin_records(): return admin_records_()
 
 if __name__ == "__main__":
     app.run(debug=True)

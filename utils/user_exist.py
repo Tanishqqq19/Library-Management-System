@@ -1,6 +1,5 @@
-import sqlite3 as sql
-def user_exist(email):
-    conn=None
+import sqlite3 as sql 
+def user_exist(email: str | None) -> bool:
     try:
         with sql.connect('library.db') as conn:
             cur=conn.cursor()
@@ -12,6 +11,6 @@ def user_exist(email):
                 return False
     except Exception as e:
         conn.rollback()
-        n='operation unsuccessful'
+        return False
     finally:
         conn.close()

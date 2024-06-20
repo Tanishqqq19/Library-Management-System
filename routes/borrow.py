@@ -3,11 +3,8 @@ from datetime import date, datetime, timedelta
 
 from flask import Flask, render_template, request, session
 
-
-def init_app(app):
-    @app.route("/borrow/<books>")
-    def borrow(books):
-        if session.get("authenticated", False) == False:
-            return render_template("login.html", error_message="You haven't logged in")
-        session["books"] = books
-        return render_template("booking_page.html", books=books)
+def borrow_(books):
+    if session.get("authenticated", False) == False:
+        return render_template("login.html", error_message="You haven't logged in")
+    session["books"] = books
+    return render_template("booking_page.html", books=books)

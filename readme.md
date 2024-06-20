@@ -20,7 +20,7 @@ This Library Management System is a feature-rich application designed to streaml
 - `login.py`: To log in an existing user.
 - `logout.py`: For user logout.
 
-sample_user_email=uu@gmail.com
+sample_user_email=user@gmail.com
 sample_user_password=123
 
 sample_admin_email=admin@gmail.com
