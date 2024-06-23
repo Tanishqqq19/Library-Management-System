@@ -16,7 +16,7 @@ from routes.register import register_user
 from routes.search_books_by_author import search_books_by_author_
 from routes.search_books_by_title import search_books_by_title_
 
-from config import DATABASE_URL
+from password import DATABASE_URL
 # C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 
 

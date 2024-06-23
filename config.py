@@ -1,1 +1,0 @@
-DATABASE_URL="postgres://u4384j6ld0h0qa:pf0063c3de2ec5fc7c46f5a9aecbd0c09624b1ddade76614ab1123bcd65fa733b@cb889jp6h2eccm.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d39ovadjun8u4o"
