@@ -1,145 +1,469 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome to Library Management System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">   
-    <style type="text/css">
-      .myImage {
-        float: left;
-        /*height: 75px;
-        width: 235px;*/
-        font-family: Veranda;
-      }
-      .heading {
-        float:middle;
-      }
-      * {
-  margin: 0;
-  padding: 0;
-}
-body {
-  font-family: 'Poppins', sans-serif;
-}
-.wrapper {
-  width: 1170px;
-  margin: auto;
-}
-header {
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(https://i.postimg.cc/63MKMK3b/lib.jpg);
-  height: 100vh;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center center;
-  position: relative;
-}
-.nav-area {
-  float: right;
-  list-style: none;
-  margin-top: 30px;
-}
-.nav-area li {
-  display: inline-block;
-}
-.nav-area li a {
-  color: #fff;
-  text-decoration: none;
-  padding: 5px 20px;
-  font-family: poppins;
-  font-size: 16px;
-  text-transform: uppercase;
-}
-.nav-area li a:hover {
-  background: #fff;
-  color: #333;
-}
-.logo {
-  float: left;
-}
-.logo img {
-  width: 100%;
-  padding: 15px 0;
-}
-.welcome-text {
-  position: absolute;
-  width: 600px;
-  height: 300px;
-  margin: 20% 30%;
-  text-align: center;
-}
-.welcome-text h1 {
-  text-align: center;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 60px;
-}
-.welcome-text h1 span {
-  color: #00fecb;
-}
-.welcome-text a {
-  border: 1px solid #fff;
-  padding: 10px 25px;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-top: 20px;
-  display: inline-block;
-  color: #fff;
-}
-.welcome-text a:hover {
-  background: #fff;
-  color: #333;
-}
-/*resposive*/
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
 
-@media (max-width:600px) {
-  .wrapper {
-    width: 100%;
-  }
-  .logo {
-    float: none;
-    width: 50%;
-    text-align: center;
-    margin: auto;
-  }
-  img {
-    width: 20;
-  }
-  .nav-area {
-    float: none;
-    margin-top: 0;
-  }
-  .nav-area li a {
-    padding: 5px;
-    font-size: 11px;
-  }
-  .nav-area {
-    text-align: center;
-  }
-  .welcome-text {
-    width: 100%;
-    height: auto;
-    margin: 30% 0;
-  }
-  .welcome-text h1 {
-    font-size: 30px;
-  }
-}
+    header {
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    </style> 
+    header img {
+      height: 40px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .main-banner {
+      width: 100%;
+      max-width: 95%;
+      height: 500px;
+      margin: 0 auto;
+      border-radius: 30px;
+      background: #038BB6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .main-banner img {
+      width: 383px;
+      height: 288px;
+      position: absolute;
+    }
+
+    .main-banner img.left {
+      top: 280px;
+      left: 20px;
+    }
+
+    .main-banner img.right {
+      top: -40px;
+      right: -30px;
+    }
+
+    .main-banner h2 {
+      width: 924px;
+      color: var(--text-color, #FFF);
+      text-align: center;
+      font-family: "Helvetica Now Display";
+      font-size: 96px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%;
+      letter-spacing: -3.84px;
+      z-index: 1;
+    }
+
+    .main-banner p {
+      font-size: 16px;
+      margin-top: 10px;
+      z-index: 1;
+    }
+
+    .section-title {
+      width: 584px;
+      color: #222;
+      text-align: center;
+      font-family: "Helvetica Now Display", sans-serif;
+      font-size: 50px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 120%;
+      text-transform: capitalize;
+      margin: 40px auto 20px;
+      margin-bottom: 4%;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      justify-content: center;
+      padding: 0 20px;
+      margin-bottom: 5%;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 250px;
+      border: 2px solid #D8BFD8;
+      border-radius: 15px;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .container img {
+      max-width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .container .title {
+      margin-top: 10px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .books-shown-section {
+      margin-top: 10%;
+      /* margin-bottom: 5%; */
+    }
+
+    .top-rated-books {
+      color: black;
+      width: 375px;
+      height: 60px;
+      margin-left: 1%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Helvetica Now Display";
+      font-size: 50px;
+      font-weight: 500;
+      line-height: 60px;
+      text-align: left;
+      padding: 10px;
+    }
+
+    .book-list {
+      display: flex;
+      /* justify-content: flex-start; */
+      justify-content: space-between;
+      /* gap: 6%; */
+      padding: 0 50px;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      width: 205.54px;
+    }
+
+    .book-item img {
+      width: 205.54px;
+      height: 215px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .book-details {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .book-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-family: "Helvetica Now Display";
+      color: #4A83F6;
+    }
+
+    .book-author {
+      font-size: 14px;
+      font-weight: 400;
+      font-family: "Helvetica Now Display";
+    }
+
+    .see-all {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .see-all button {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .see-all button:hover {
+      background-color: #026a8b;
+    }
+
+    footer {
+      width: 100%;
+      max-width: 97.5%;
+      height: 400px;
+      margin: 0 auto;
+      margin-bottom: 5%;
+      border-radius: 30px;
+      background: #003D50;
+      color: #fff;
+      padding: 40px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin: 20px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-section p {
+      margin: 10px 0;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid #ffffff40;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 5px;
+      /* Reduced gap between buttons */
+    }
+
+    .button-login,
+    .button-signin {
+      text-decoration: none;
+      /* Remove underline */
+    }
+
+    .button-login {
+      background-color: transparent;
+      border: 2px solid #038BB6;
+      color: #038BB6;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .button-login:hover {
+      background-color: #038BB6;
+      color: #ffffff;
+    }
+
+    .button-signin {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button-signin:hover {
+      background-color: #026a8b;
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-<ul class="nav-area">
-<li><a href="#">Home</a></li>
-<li><a href="/register">Sign up</a></li>
-<li><a href="/login">Login</a></li>
-</ul>
-</div>
-<div class="welcome-text">
-        <h1>Library Reservation System</h1>
+  <header>
+    <div class="logo">
+      <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+      <h1>LMS</h1>
     </div>
-</header>
+    <nav>
+      <a href="/register">Booking Page</a>
+      <a href="/login">Return Books</a>
+      <a href="#">Library Collection</a>
+      <a href="#">FAQs</a>
+    </nav>
+    <div class="button-container">
+      <a class="button-login" href="/login">Login</a>
+      <a class="button-signin" href="/register">Sign Up</a>
+    </div>
+  </header>
+  <div class="main-banner">
+    <img src="https://i.postimg.cc/j5H92Cph/books-in-background.png" class="left">
+    <h2>Library Management System</h2>
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+      industry's standard</p>
+    <img src="https://i.postimg.cc/j5H92Cph/books-in-background.png" class="right">
+  </div>
+  <div class="section-title">What This Book System Is Capable Of</div>
+  <div class="content">
+    <div class="container">
+        <a href="/display_borrowable_books">
+            <img src="https://i.postimg.cc/j51XsT5h/booking-page.png" alt="Booking Page">
+            <div class="title">Booking Page</div>
+        </a>
+    </div>
+    <div class="container">
+        <a href="/manage_returns">
+            <img src="https://i.postimg.cc/RV4jy1kV/return-books.png" alt="Return Books">
+            <div class="title">Return Books</div>
+        </a>
+    </div>
+    <div class="container">
+        <a href="/display_books">
+            <img src="https://i.postimg.cc/HkZDQJPW/all-the-books.png" alt="All the Books In This Library">
+            <div class="title">All the Books In This Library</div>
+        </a>
+    </div>
+    <div class="container">
+        <a href="/faq">
+            <img src="https://i.postimg.cc/ZYrcGGm6/faq.png" alt="Q&A">
+            <div class="title">Q&A</div>
+        </a>
+    </div>
+</div>
+  </div>
+
+  <!-- <div class="books-shown-section">
+    <div class="top-rated-books">Top Rated Books</div>
+    <div class="book-list">
+      <div class="book-item">
+        <img src="book.png" alt="The Flash Vol 1">
+        <div class="book-title">The flash, Vol. 1</div>
+        <div class="book-author">Joshua Williamson</div>
+      </div>
+      <div class="book-item">
+        <img src="book.png" alt="The Flash Vol 1">
+        <div class="book-title">The flash, Vol. 1</div>
+        <div class="book-author">Joshua Williamson</div>
+      </div>
+      <div class="book-item">
+        <img src="book.png" alt="The Flash Vol 1">
+        <div class="book-title">The flash, Vol. 1</div>
+        <div class="book-author">Joshua Williamson</div>
+      </div>
+      <div class="book-item">
+        <img src="book.png" alt="The Flash Vol 1">
+        <div class="book-title">The flash, Vol. 1</div>
+        <div class="book-author">Joshua Williamson</div>
+      </div>
+      <div class="book-item">
+        <img src="book.png" alt="The Flash Vol 1">
+        <div class="book-title">The flash, Vol. 1</div>
+        <div class="book-author">Joshua Williamson</div>
+      </div> -->
+  </div>
+  </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="logo">
+          <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+          <h1>LMS</h1>
+        </div>
+        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia</p>
+        <p>Email: cirtrus@gmail.com</p>
+        <p>Phone: +933333333333</p>
+      </div>
+      <div class="footer-section">
+        <h3>Pages</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Care</h3>
+        <ul>
+          <li><a href="#">Term & Conditions</a></li>
+          <li><a href="#">Feedback</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy;2024 All Rights Reserved</p>
+    </div>
+  </footer>
 </body>
+
 </html>

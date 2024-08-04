@@ -3,8 +3,6 @@ import sqlite3 as sql
 
 
 def display_books_():
-    if not session.get('authenticated', False):
-        return render_template('login.html', error_message="You haven't logged in")
     try:
         with sql.connect('library.db') as connection:
             cursor = connection.cursor()
