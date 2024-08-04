@@ -5,6 +5,8 @@ from flask import render_template, session
 
 
 def manage_returns_():
+    if not session.get("authenticated", False):
+        return render_template("login.html", error_message="You haven't logged in")
 
     database_connection = None
     user_id = session["user_id"]

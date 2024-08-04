@@ -5,6 +5,9 @@ from flask import render_template, session
 
 
 def display_borrowable_books_():
+    if not session.get("authenticated", False):
+        return render_template("login.html", error_message="You haven't logged in")
+
     connection = None
     available_book_ids = []
     book_names = []

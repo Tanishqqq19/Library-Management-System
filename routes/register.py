@@ -13,6 +13,8 @@ def register_user():
         email = request.form.get("email")
         password = request.form.get("password")
 
+        print(username,email,password)
+
         if password==None:
             return render_template("login.html", error_message="Password returns None")
         is_user_existing = user_exist(email)
