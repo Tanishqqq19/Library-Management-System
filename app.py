@@ -49,8 +49,8 @@ def login(): return login_user()
 @app.route("/display_borrowable_books")
 def display_borrowable_books(): return display_borrowable_books_()
 
-@app.route("/borrow_duration/<time_period>")
-def borrow_duration(time_period): return borrow_duration_(time_period)
+@app.route("/borrow_duration", methods=['POST'])
+def borrow_duration(): return borrow_duration_()
 
 @app.route("/borrow/<books>")
 def borrow(books): return borrow_(books)

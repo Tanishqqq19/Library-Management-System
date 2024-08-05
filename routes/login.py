@@ -62,7 +62,7 @@ def login_user():
                                         print(1)
                                         return redirect("/admin_records")
                                     elif role == "user":
-                                        return render_template("overview_home.html")
+                                        return render_template("display_borrowable_books.html")
                     else:
                         return render_template(
                             "login.html",

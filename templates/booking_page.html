@@ -1,71 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Borrow Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    header {
+      background-color: #ffffff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    <style>
-        
-        body{
-            text-align:center;
-                    }
-        label{
-            font-size: 20px;
-        }
-        table,th,td{
-          border:3px solid;
-          padding: 10px;
-        }
-        table{
-          margin-left: 15%;
-        }
-      </style>
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+    }
 
-    <title>Tanishq's Website</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#"><img src="../static/logo.PNG" width=80
-           alt=""></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/overview_home">Home</a>
-              </li>
-               <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>        
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Log out</a>
-              </li> 
-                </ul>
-            </ul>
-            </li>
-          </div>
+    .main-banner {
+      width: 100%;
+      max-width: 95%;
+      height: 500px;
+      margin: 0 auto;
+      background: #038BB6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .main-banner h2 {
+      font-size: 96px;
+      font-weight: 700;
+    }
+
+    .main-banner p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 50px;
+      margin: 40px auto 20px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 250px;
+      border: 2px solid #D8BFD8;
+      border-radius: 15px;
+      padding: 20px;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .container img {
+      max-width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .container .title {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .top-rated-books {
+      width: 400px;
+      margin-left: 1%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+    }
+
+    .book-list {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 50px;
+      margin-bottom: 2.5%;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 205.54px;
+    }
+
+    .book-item img {
+      width: 150px;
+      height: 215px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    .book-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #4A83F6;
+      text-align: center;
+    }
+
+    .book-author {
+      font-size: 14px;
+    }
+
+    .see-all {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .see-all button {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #003D50;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin: 20px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button-login {
+      background-color: transparent;
+      border: 2px solid #038BB6;
+      color: #038BB6;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .button-signin {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .books-title {
+      text-align: center;
+      font-size: 50px;
+      margin: 40px auto 20px;
+    }
+
+    .search-container {
+      position: relative;
+      width: 60%;
+      margin: 20px auto;
+    }
+
+    .search-bar {
+      width: 100%;
+      height: 70px;
+      border-radius: 50px;
+      padding: 10px 20px;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+    }
+
+    .scroll-container {
+      display: flex;
+      overflow-x: hidden;
+      white-space: nowrap;
+      width: 100vw;
+      align-items: center;
+    }
+
+    .item {
+      position: relative;
+      min-width: 500px;
+      height: 300px;
+      margin: 20px;
+      background-color: lightblue;
+      text-align: center;
+      line-height: 300px;
+      font-size: 24px;
+      border-radius: 10px;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .container1 {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .image1 {
+      max-width: 70%;
+      height: auto;
+      margin-right: 20px;
+    }
+
+    .content1 {
+      max-width: 50%;
+    }
+
+    .title1 {
+      font-family: 'Helvetica Now Display', sans-serif;
+      font-size: 45px;
+      font-weight: 700;
+      line-height: 66.15px;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .author1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 19.44px;
+      font-weight: 500;
+      line-height: 29.17px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .weeks1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      color: #038BB6;
+      font-weight: 500;
+      line-height: 29.17px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .weeks1 label {
+      margin-left: 10px;
+    }
+
+    .weeks1 select {
+      font-size: 20px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .button1 {
+      display: flex;
+      gap: 10px;
+    }
+
+    .borrow-button {
+      width: 383px;
+      height: 55px;
+      gap: 0px;
+      border-radius: 12px 12px 12px 12px;
+      background: #038BB6;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .borrow-button:hover {
+      background-color: #026a8b;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+      <h1>LMS</h1>
+    </div>
+    <nav>
+      <a href="/display_borrowable_books">Booking Page</a>
+      <a href="/manage_returns">Return Books</a>
+      <a href="/display_books">Library Collection</a>
+      <a href="/faq">FAQs</a>
+    </nav>
+    <div class="button-container">
+      <a class="button-login" href="/login">Login</a>
+      <a class="button-signin" href="/register">Sign Up</a>
+    </div>
+  </header>
+
+  <div class="container1">
+    <img src={{image}} class="image1">
+    <div class="content1">
+      <div class="title1">{{books}}</div>
+      <div class="author1">{{author}}</div>
+
+      <form action="/borrow_duration" method="POST">
+        <!-- <form action="/borrow_duration"> -->
+        <div class="weeks1">
+          <select id="weeks" name="weeks">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+
+          <label for="weeks">Weeks</label>
         </div>
-      </nav>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-      <h4>Do you want to book {{books}}?</h4>
-      {{f}}
-      <form action="/book_check" method="POST">
 
-      <a href="/borrow_duration/7">
-        <img src="https://i.postimg.cc/pVBp8qjK/1week.jpg"></img>
-      </a>
-      <a href="/borrow_duration/14">
-        <img src="https://i.postimg.cc/h4MthhFr/2week.jpg"></img>
-      </a>
-      <a href="/borrow_duration/30">
-        <img src="https://i.postimg.cc/g2LzMDxS/1month.jpg"></img>
-    </body>
+        <button type="submit" class="borrow-button">Borrow Book</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="books-shown-section">
+    <div class="top-rated-books">Similar Books</div>
+    <div class="book-list">
+      {% for i in extra_books %}
+      <div class="book-item">
+        <img src={{i[2]}}>
+        <div class="book-title">{{i[0]}}</div>
+        <div class="book-author">{{i[1]}}</div>
+      </div>
+      {%endfor%}
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <div class="logo">
+          <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+          <h1>LMS</h1>
+        </div>
+        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia</p>
+        <p>Email: cirtrus@gmail.com</p>
+        <p>Phone: +933333333333</p>
+      </div>
+      <div class="footer-section">
+        <h3>Pages</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Customer Care</h3>
+        <ul>
+          <li><a href="#">Term & Conditions</a></li>
+          <li><a href="#">Feedback</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy;2024 All Rights Reserved</p>
+    </div>
+  </footer>
+</body>
+
 </html>
