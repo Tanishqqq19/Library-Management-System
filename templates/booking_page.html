@@ -407,10 +407,10 @@
         <!-- <form action="/borrow_duration"> -->
         <div class="weeks1">
           <select id="weeks" name="weeks">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
+            <option value="7">1</option>
+            <option value="14">2</option>
+            <option value="21">3</option>
+            <option value="28">4</option>
           </select>
 
           <label for="weeks">Weeks</label>
@@ -426,7 +426,7 @@
     <div class="book-list">
       {% for i in extra_books %}
       <div class="book-item">
-        <img src={{i[2]}}>
+        <a href="/borrow/{{i[0]}}"><img src={{i[2]}}> </a>
         <div class="book-title">{{i[0]}}</div>
         <div class="book-author">{{i[1]}}</div>
       </div>

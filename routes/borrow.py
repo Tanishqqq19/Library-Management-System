@@ -21,12 +21,9 @@ def borrow_(books):
             all_content = cursor.fetchall()
             author=all_content[0][0]
             image=all_content[0][1]
-            print(author)
-            print(image)
 
             cursor.execute('SELECT books_name,author,image FROM books')
             extra_books = cursor.fetchall()
-            print(extra_books)
 
     except Exception as e:
         connection.rollback()

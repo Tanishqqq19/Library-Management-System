@@ -1,176 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All the books in the library</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    header {
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-    <style>
-        /* Style the submit button */
-        .search_bars{
-          text-align:center;
-        }
-        form.example button {
-          float: left;
-          width: 40%;
-          padding: 30px;
-          background: #2196F3;
-          color: white;
-          font-size: 17px;
-          border: 2px solid grey;
-          border-left: none; /* Prevent double borders */
-          cursor: pointer;
-        }
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+    }
 
-        form.example button:hover {
-          background: #0b7dda;
-        }
+    .main-banner {
+      width: 100%;
+      max-width: 95%;
+      height: 500px;
+      margin: 0 auto;
+      background: #038BB6;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
 
-        /* Clear floats */
-        form.example::after {
-          content: "";
-          clear: both;
-          display: table;
-        }
-        .container {
-        display: flex;
-        align-items: center;
-        justify-content: center
-      }
-        .text {
-        /* color: #CD5C5C; */
-        padding-left: 20px;
-        /* font: italic 10px "Fira Sans", serif; */
-      }
-      .image {
-        flex-basis: 70%;
-        order: 2;
-      }
-      /* img {
-        width:  200px;
-        height: 200px;
-      } */
-      .post-container {
-          margin: 20px 20px 0 0;  
-          border: 5px solid #333;
-          overflow: auto
-      }
-      .post-thumb {
-          float: left
-      }
-      .post-thumb img {
-          display: block
-      }
-      .post-content {
-          margin-left: 210px
-      }
-      .post-title {
-          font-weight: bold;
-          font-size: 200%
-      }
-      .btn {
-        font-family: "Sentinel A","Sentinel B",Georgia,serif; 
-        text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-        background: #4383c5;
-        color: #FFF;
-        padding: 6px 20px 7px; 
-        font-size: 18px;
-        line-height: 23px;
-        min-width: 50px;
-        text-align: center;
-        text-decoration: none;
-        vertical-align: middle; 
-        border: 1px solid 4383c5;
-        cursor: pointer;
-        font-weight: 600px; 
-        transition: opacity 0.1s ease-out,background 0.1s ease-out;
-        /* -webkit-border-radius: 2px; */
-        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.4);
-        box-shadow: inset 0 1px 0 rgba(255,255,255,0.3),0 1px 3px rgba(0,0,0,0.4);
-        -webkit-transition: opacity 0.1s ease-out,background 0.1s ease-out;
-      }
+    .main-banner h2 {
+      font-size: 96px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .main-banner p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .section-title {
+      color: #222;
+      text-align: center;
+      font-size: 50px;
+      font-weight: 500;
+      margin: 40px auto 20px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 250px;
+      border: 2px solid #D8BFD8;
+      border-radius: 15px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .container img {
+      max-width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .container .title {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .top-rated-books {
+      color: black;
+      width: 400px;
+      margin-left: 1%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: 500;
+      margin-bottom: 1%;
+    }
+
+    .book-list {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 50px;
+      margin-bottom: 2.5%;
+    }
+
+    .book-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 205.54px;
+    }
+
+    .book-item img {
+      /* width: 205.54px; */
+      /* height: 215px; */
+      margin-bottom: 10px;
+      border-radius: 10px;
+    }
+
+    .book-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #4A83F6;
+      align-items: center;
+    }
+
+    .book-author {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .see-all {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .see-all button {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .see-all button:hover {
+      background-color: #026a8b;
+    }
+
+    footer {
+      background: #003D50;
+      color: #fff;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 200px;
+      margin: 20px;
+    }
+
+    .footer-section h3 {
+      margin-bottom: 15px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 20px 0;
+      border-top: 1px solid #ffffff40;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button-login {
+      background-color: transparent;
+      border: 2px solid #038BB6;
+      color: #038BB6;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .button-login:hover {
+      background-color: #038BB6;
+      color: #ffffff;
+    }
+
+    .button-signin {
+      background-color: #038BB6;
+      border: none;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .button-signin:hover {
+      background-color: #026a8b;
+    }
+
+    .books-title {
+      color: #222;
+      text-align: center;
+      font-size: 50px;
+      font-weight: 500;
+      margin: 40px auto 20px;
+    }
+
+    .search-container {
+      position: relative;
+      width: 60%;
+      margin: 20px auto;
+    }
+
+    .search-bar {
+      width: 100%;
+      height: 70px;
+      border-radius: 50px;
+      border: 0.2px solid #000;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+    }
+
+    .overall {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .scroll-container {
+      display: flex;
+      overflow-x: hidden;
+      white-space: nowrap;
+      width: 100vw;
+      align-items: center;
+      padding: 0;
+      /* Adjusted to remove padding */
+      box-sizing: border-box;
+    }
+
+    .item {
+      position: relative;
+      min-width: 500px;
+      height: 300px;
+      margin: 20px;
+      background-color: lightblue;
+      text-align: center;
+      line-height: 20px;
+      font-size: 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      height: 7%;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+      <h1>LMS</h1>
+    </div>
+    <nav>
+      <a href="/display_borrowable_books">Booking Page</a>
+      <a href="/manage_returns">Return Books</a>
+      <a href="/display_books">Library Collection</a>
+      <a href="/faq">FAQs</a>
+    </nav>
+    <div class="button-container">
+      <a class="button-login" href="/login">Login</a>
+      <a class="button-signin" href="/register">Sign Up</a>
+    </div>
+  </header>
+
+  <div class="books-title">All The Books in <br>This Library</div>
+
+  <div class="search-container">
+    <form action="/search_books_by_title" method="POST">
+      <input type="text" class="search-bar" name="search" placeholder="Search Book by Name">
+      <img src="https://i.postimg.cc/gjKTPBxf/search-bar.png" alt="Search Icon" class="search-icon">
+    </form>
+  </div>
+  <div class="search-container">
+    <form action="/search_books_by_author" method="POST">
+      <input type="text" class="search-bar" name="search" placeholder="Search Book by Author">
+      <img src="https://i.postimg.cc/gjKTPBxf/search-bar.png" alt="Search Icon" class="search-icon">
+    </form>
+  </div>
+
+  <div class="overall">
+    <div class="scroll-container">
+      {% for i in book_full_details %}
+      {%for j in i%}
+      <div class="item">
+        <img src={{j[0]}} alt="Image 1">
+        <a href="/borrow/{{j[1]}}" class="button">Borrow</a>
+      </div>
+      {%endfor%}
+      {%endfor%}
+    </div>
+  </div>
+
+  <script>
+    const container = document.querySelector('.scroll-container');
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      container.classList.add('active');
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      isDown = false;
+      container.classList.remove('active');
+    });
+
+    container.addEventListener('mouseup', () => {
+      isDown = false;
+      container.classList.remove('active');
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 3; //scroll-fast
+      container.scrollLeft = scrollLeft - walk;
+    });
+  </script>
 
 
-      .btn:hover
-      {
-        background-color: #356fac; 
-      }
-      </style>
 
-    <title>Tanishq's Website</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="#"><img src="../static/logo.PNG" width=80 -->
-           <!-- alt=""></a> -->
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/overview_home">Home</a>
-              </li>
-               <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Log out</a>
-              </li>
-                </ul>
-            </ul>
-            </li>
-          </div>
+  <div class="books-shown-section">
+    <div class="top-rated-books">Top Rated Books</div>
+    <div class="book-list">
+      {% for i in book_full_details %}
+      {%for j in i%}
+      <div class="book-item">
+        <a href="/borrow/{{j[1]}}"><img src={{j[0]}}> </a>
+        <div class="book-title">{{j[1]}}</div>
+        <div class="book-author">{{j[2]}}</div>
+      </div>
+      {%endfor%}
+      {%endfor%}
+    </div>
+
+
+    <div class="books-shown-section">
+      <div class="book-list">
+        {% for i in matching_books %}
+        <div class="book-item">
+          <a href="/borrow/{{i[1]}}"><img src={{i[2]}}> </a>
+          <div class="book-title">{{i[1]}}</div>
+          <div class="book-author">{{i[0]}}</div>
         </div>
-      </nav>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>  
-    </div>  
-      <div class="search_bars">
-        <form action="/search_books_by_title" method="POST">
-          <input type="text" name="search" id="" placeholder='search by books'>
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-        <form action="/search_books_by_author" method="POST">
-          <input type="text" name="search" id="" placeholder='search by author'>
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
-          {% for i in book_full_details %}
-              {%for j in i%}
-              <div class="post-container">                
-                <div class="post-thumb"><img src="{{j[0]}}" width=200 height=200/></div>
-                <div class="post-content">
-                    <h3 class="post-title">{{j[1]}}</h3>
-                    <p>Author: {{j[2]}}</p>
-                    <a href='/borrow/{{j[1]}}'>
-                      <img src="https://i.postimg.cc/PqnShqV5/get-book.jpg" width="200" height="50"></img>
-                    </a>
-                    <a href="#" class="btn"><span>+ Add to Wish List</span></a>
-                </div>
-                </div>
         {%endfor%}
-      {%endfor%} 
+      </div>
     </div>
-      {%for i in matching_books%}
-          <a href='/borrow/{{i[1]}}'>
-            <img src="{{i[2]}}"></img>
-            <br>
-            <br>
-          </a>
-          <br>
-      {%endfor%}
-      {%for i in books_matching_title%}
-          <a href='/borrow/{{i[0]}}'>
-            <img src="{{i[1]}}"></img>
-          </a>
-          <br>
-      {%endfor%}
-    </body>
+
+    <div class="books-shown-section">
+      <div class="book-list">
+        {% for i in books_matching_title %}
+        <div class="book-item">
+          <a href="/borrow/{{i[1]}}"><img src={{i[2]}}> </a>
+          <div class="book-title">{{i[1]}}</div>
+          <div class="book-author">{{i[0]}}</div>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+  
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <div class="logo">
+            <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+            <h1>LMS</h1>
+          </div>
+          <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia</p>
+          <p>Email: cirtrus@gmail.com</p>
+          <p>Phone: +933333333333</p>
+        </div>
+        <div class="footer-section">
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Customer Care</h3>
+          <ul>
+            <li><a href="#">Term & Conditions</a></li>
+            <li><a href="#">Feedback</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy;2024 All Rights Reserved</p>
+      </div>
+    </footer>
+</body>
+
 </html>

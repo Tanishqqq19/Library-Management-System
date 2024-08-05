@@ -14,11 +14,11 @@ def search_books_by_title_():
         try:
             with sql.connect("library.db") as connection:
                 cursor = connection.cursor()
-                cursor.execute("SELECT books_name, image FROM books")
+                cursor.execute("SELECT author, books_name, image FROM books")
                 all_books = cursor.fetchall()
-                for book_name, image in all_books:
+                for author,book_name, image in all_books:
                     if book_name == search_query:
-                        books_matching_title.append((book_name, image))
+                        books_matching_title.append((author, book_name, image))
 
         except Exception as e:
             if connection:

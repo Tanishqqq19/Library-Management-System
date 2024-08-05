@@ -11,6 +11,7 @@ def borrow_duration_():
         session_borrow_user_name = session["Username"]
 
         time=request.form.get('weeks')
+        print(time)
 
         if time==None:
             time=0
