@@ -202,7 +202,7 @@
     <div class="book-list">
         {% for i in book_details_list %}
         <div class="book-item">
-            <div class="due-date"></div>
+            <div class="due-date">{{i[4]}}</div>
             <img src={{i[0]}} alt="The Flash Vol 1">
             <div class="book-title">{{i[3]}}</div>
             <div class="book-author">{{i[2]}}</div>
