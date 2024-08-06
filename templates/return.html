@@ -1,30 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Return Book</title>
     <style>
-        .return{
-          margin-left: 30px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .books-title {
+            color: #222;
+            text-align: center;
+            font-size: 50px;
+            font-weight: 500;
+            margin: 40px auto 20px;
+        }
+
+        .search-container {
+            position: relative;
+            width: 60%;
+            margin: 20px auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            height: 70px;
+            border-radius: 50px;
+            border: 0.2px solid #000;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+        }
+
+        .book-list {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+        }
+
+        .book-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 205.54px;
+            position: relative;
+        }
+
+        .book-item img {
+            width: 205.54px;
+            height: 215px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .book-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #4A83F6;
+        }
+
+        .book-author {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .due-date {
+            width: 150px;
+            height: 25px;
+            position: absolute;
+            padding: 2px 5px;
+            border-radius: 5px 0 0 0;
+            background: #038BB6;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+        }
+
+        .return-button {
+            padding: 13px 76px;
+            border-radius: 12px;
+            background: #038BB6;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            position: absolute;
+            bottom: -70px;
+            cursor: pointer;
+            left: 10px;
+        }
+
+        .return-button:hover {
+            background-color: #026a8b;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-login {
+            background-color: transparent;
+            border: 2px solid #038BB6;
+            color: #038BB6;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .button-login:hover {
+            background-color: #038BB6;
+            color: #ffffff;
+        }
+
+        .button-signin {
+            background-color: #038BB6;
+            border: none;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-signin:hover {
+            background-color: #026a8b;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin: 0;
         }
     </style>
 </head>
+
 <body>
-    <div class="return">
-        {%for record in book_details_list%}
-            <a href='#'>
-                <img src="{{record[0]}}"></img>
+    <header>
+        <div class="logo">
+            <img src="https://i.postimg.cc/RVpM4bQZ/logo.png" alt="Library Logo">
+            <h1>LMS</h1>
+        </div>
+        <nav>
+            <a href="/display_borrowable_books">Booking Page</a>
+            <a href="/manage_returns">Return Books</a>
+            <a href="/display_books">Library Collection</a>
+            <a href="/faq">FAQs</a>
+        </nav>
+        <div class="button-container">
+            <a class="button-login" href="/login">Login</a>
+            <a class="button-signin" href="/register">Sign Up</a>
+        </div>
+    </header>
+
+    <div class="books-title">Return Books</div>
+
+    <!-- <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search Book">
+        <img src="search_bar.png" alt="Search Icon" class="search-icon">
+    </div> -->
+
+    <div class="book-list">
+        {% for i in book_details_list %}
+        <div class="book-item">
+            <div class="due-date"></div>
+            <img src={{i[0]}} alt="The Flash Vol 1">
+            <div class="book-title">{{i[3]}}</div>
+            <div class="book-author">{{i[2]}}</div>
+            <a href="/process_return/{{i[1]}}">
+                <div class="return-button">Return Book</div>
             </a>
-            <br>
-            Author:{{record[2]}}
-            <br>
-            <a href='/process_return/{{record[1]}}'>
-                <img src="https://i.postimg.cc/Sxt8B0Zm/return.jpg"></img>
-              </a>
-            <br>
+        </div>
         {%endfor%}
     </div>
 </body>
+
 </html>
