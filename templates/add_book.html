@@ -501,10 +501,11 @@
     <nav>
       <a href="/admin_records">Lender's Portal</a>
       <a href="/add_book">Add Book</a>
+      <a href="/display_books">Library Collection</a>
     </nav>
     <div class="button-container">
-      <button class="button-login">Login</button>
-      <button class="button-signin">Sign Up</button>
+      <a class="button-login" href="/login">Login</a>
+      <a class="button-signin" href="/register">Sign Up</a>
     </div>
   </header>
 
@@ -519,9 +520,9 @@
         <div class="login-title">Add a Book</div>
         <div class="input-group">
           <p class="text-above-input">Name of the Book</p>
-          <input type="email" name="book" placeholder="Name of the Book">
+          <input type="text" name="book" placeholder="Name of the Book">
           <p class="text-above-input">Author of the Book</p>
-          <input type="email" name='author' placeholder="Author of the Book">
+          <input type="text" name='author' placeholder="Author of the Book">
           <p class="text-above-input">Number of books to borrow from the library</p>
           <input type="books_to_borrow" name='quantity' placeholder="Number of books to borrow from the library">
           <p class="text-above-input">Image of the Book</p>
