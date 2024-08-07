@@ -16,6 +16,8 @@ from routes.register import register_user
 from routes.search_books_by_author import search_books_by_author_
 from routes.search_books_by_title import search_books_by_title_
 
+from routes.display_books_admin import display_books_admin_function
+
 from password import DATABASE_URL
 # C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 
@@ -72,6 +74,9 @@ def overview_home(): return overview_home_()
 
 @app.route("/admin_records")
 def admin_records(): return admin_records_()
+
+@app.route("/display_books_admin")
+def display_books_admin_(): return display_books_admin_function()
 
 if __name__ == "__main__":
     app.run(debug=True)
