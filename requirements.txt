@@ -1,12 +1,12 @@
-click==7.1.2
-colorama==0.4.3
-Flask==1.1.2
-gunicorn==20.0.4
-importlib-metadata==1.7.0
-itsdangerous==1.1.0
-Jinja2==2.11.2
-MarkupSafe==1.1.1
-packaging==20.4
-psycopg2==2.8.6
-Werkzeug==1.0.1
-zipp==3.1.0
+click @ file:///C:/b/abs_f9ihnt72pu/croot/click_1698129847492/work
+colorama @ file:///C:/b/abs_a9ozq0l032/croot/colorama_1672387194846/work
+Flask @ file:///C:/b/abs_efc024w7fv/croot/flask_1702980041157/work
+gunicorn==21.2.0
+importlib-metadata @ file:///C:/b/abs_c1egths604/croot/importlib_metadata-suite_1704813568388/work
+itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
+Jinja2 @ file:///C:/b/abs_f7x5a8op2h/croot/jinja2_1706733672594/work
+MarkupSafe @ file:///C:/b/abs_ecfdqh67b_/croot/markupsafe_1704206030535/work
+packaging==23.2
+psycopg2==2.9.9
+Werkzeug @ file:///C:/b/abs_3901hwqcw0/croot/werkzeug_1706210134718/work
+zipp @ file:///C:/b/abs_b0beoc27oa/croot/zipp_1704206963359/work
