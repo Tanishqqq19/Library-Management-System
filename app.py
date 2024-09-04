@@ -18,7 +18,14 @@ from routes.search_books_by_title import search_books_by_title_
 
 from routes.display_books_admin import display_books_admin_function
 
-from password import DATABASE_URL
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+
 # C:\Projects\Trial\sqlite-tools-win32-x86-3340100/sqlite3 c:\Users\tanme\Documents\GitHub\Library-Management-System\library.db
 
 
